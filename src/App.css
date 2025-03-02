@@ -1,0 +1,18 @@
+*{
+  /* outline: 1px solid red */
+}
+@keyframes color-transition {
+  0% {
+    color: #34C759; /* hijau */
+  }
+  50% {
+    color: #ffffff;
+  }
+  100% {
+    color: #f8f406;
+  }
+}
+
+.animation-color-transition {
+  animation: color-transition 2s infinite;
+}
