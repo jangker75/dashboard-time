@@ -1,5 +1,5 @@
 # Gunakan image Node.js sebagai base image
-FROM node:16
+FROM node:18
 
 # Set working directory ke /app
 WORKDIR /app
@@ -16,8 +16,8 @@ COPY . .
 # Jalankan perintah build
 RUN npm run build
 
-# Expose port 3100 untuk akses ke aplikasi
-EXPOSE 3100
+# Expose port 3000 untuk akses ke aplikasi
+EXPOSE 3000
 
 # Jalankan perintah start dengan Vite
 CMD ["npm", "start"]
