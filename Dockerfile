@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Expose port 3000 untuk akses ke aplikasi
-EXPOSE 3000
+EXPOSE 8080
 
 # Jalankan perintah start dengan Vite
-CMD ["npm", "start"]
+CMD ["npm","run", "preview"]
