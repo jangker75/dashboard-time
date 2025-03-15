@@ -1,23 +1,24 @@
-# Gunakan image Node.js sebagai base image
-FROM node:18
-
-# Set working directory ke /app
+# Stage 1: Build the application
+FROM node:18-alpine AS build
+# Set the working directory
 WORKDIR /app
-
-# Salin package.json ke dalam container
-COPY package*.json ./
-
-# Instal dependencies
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json ./
+# Install dependencies
 RUN npm install
-
-# Salin kode aplikasi ke dalam container
+# Copy the rest of the application code
 COPY . .
-
-# Jalankan perintah build
+# Build the application
 RUN npm run build
 
-# Expose port 3000 untuk akses ke aplikasi
-EXPOSE 8080
 
-# Jalankan perintah start dengan Vite
-CMD ["npm","run", "preview"]
+# Stage 2: Serve the application using Nginx
+FROM nginx:alpine AS production
+# Copy the build output from the previous stage
+COPY --from=build /app/dist /usr/share/nginx/html
+# Copy the custom Nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Expose port 80
+EXPOSE 8080
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
