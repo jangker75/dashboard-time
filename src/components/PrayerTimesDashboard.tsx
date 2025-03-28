@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const PrayerTimesDashboard = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
