@@ -130,8 +130,9 @@ function App() {
       <div className={`min-h-screen flex flex-col items-center justify-center transition-colors duration-300 zain-regular ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-blue-100 to-blue-300 text-gray-800'
         }`}>
         <button
+          
           onClick={() => setIsDarkMode(!isDarkMode)}
-          className="absolute top-4 right-4 p-2 rounded-full bg-gray-200/50 dark:bg-gray-700/50 hover:cursor-pointer"
+          className="absolute top-4 right-4 p-2 rounded-full bg-gray-200/50 dark:bg-gray-700/50 hover:cursor-pointer z-50"
         >
           {isDarkMode ? <Sun className="text-yellow-400" /> : <Moon className="text-gray-700" />}
         </button>
