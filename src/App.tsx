@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
-
+import { Moon, Sun } from 'lucide-react';
 interface Jadwal {
   imsak: string,
   subuh: string,
@@ -25,6 +25,7 @@ function App() {
   const seconds = time.getSeconds();
   const year = time.getFullYear();
   const listSolat = ["imsak", "subuh", "dzuhur", "ashar", "maghrib", "isya"]
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const padZero = (time: number) => {
     return (time < 10) ? `0${time}` : time;
   }
@@ -40,6 +41,10 @@ function App() {
   React.useEffect(() => {
     getJadwalAzan()
   }, [])
+  React.useEffect(() => {
+    (isDarkMode) ? document.documentElement.classList.toggle('dark') : document.documentElement.classList.remove('dark')
+
+  }, [isDarkMode])
 
   const getJadwalAzan = async () => {
     const dd = new Date()
@@ -101,13 +106,13 @@ function App() {
   }
   const BlinkComponent = () => {
     return (
-      <span className={`text-white ${blink ? 'opacity-40' : 'opacity-100'}`}>:</span>
+      <span className={`${blink ? 'opacity-40' : 'opacity-100'}`}>:</span>
     )
   }
   const ItemSolat = (title: string, time?: string) => {
     return (
       <div className='flex flex-row text-2xl'>
-        <p className='w-24 md:w-20'>{capitalize(title)}</p>
+        <p className={`w-24 md:w-20 ${isDarkMode ? "" : ""}`}>{capitalize(title)}</p>
         <p className='mx-5'>:</p>
         <p className='text-2xl font-bold'>{time}</p>
       </div>
@@ -122,8 +127,15 @@ function App() {
   }
   return (
     <>
-      <div className='h-screen bg-black zain-regular'>
-        <div className='absolute top-5 left-5 text-white'>
+      <div className={`min-h-screen flex flex-col items-center justify-center transition-colors duration-300 zain-regular ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-blue-100 to-blue-300 text-gray-800'
+        }`}>
+        <button
+          onClick={() => setIsDarkMode(!isDarkMode)}
+          className="absolute top-4 right-4 p-2 rounded-full bg-gray-200/50 dark:bg-gray-700/50 hover:cursor-pointer"
+        >
+          {isDarkMode ? <Sun className="text-yellow-400" /> : <Moon className="text-gray-700" />}
+        </button>
+        <div className='absolute top-5 left-5'>
           <p className='text-3xl zain-regular'>Jadwal Solat Wilayah <span className='text-4xl zain-bold'>{city}</span></p>
           {
             listSolat.map((item, index) => {
@@ -138,10 +150,10 @@ function App() {
 
         </div>
         <div className='flex justify-center items-center h-full flex-col'>
-          <p className='text-4xl md:text-5xl text-blue-200'>
+          <p className='text-4xl md:text-5xl'>
             {date}
           </p>
-          <p className='text-6xl md:text-9xl text-white zain-bold'>
+          <p className='text-6xl md:text-9xl zain-bold'>
             {padZero(hours)}<BlinkComponent />{padZero(minutes)}<BlinkComponent />{padZero(seconds)}
           </p>
           {
