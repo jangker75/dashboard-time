@@ -111,7 +111,7 @@ function App() {
   }
   const ItemSolat = (title: string, time?: string) => {
     return (
-      <div className='flex flex-row text-2xl'>
+      <div className='flex flex-row text-2xl tracking-wider'>
         <p className={`w-24 md:w-20 ${isDarkMode ? "" : ""}`}>{capitalize(title)}</p>
         <p className='mx-5'>:</p>
         <p className='text-2xl font-bold'>{time}</p>
@@ -153,7 +153,7 @@ function App() {
           <p className='text-4xl md:text-5xl'>
             {date}
           </p>
-          <p className='text-6xl md:text-9xl zain-bold'>
+          <p className='text-6xl md:text-9xl tracking-wider zain-bold'>
             {padZero(hours)}<BlinkComponent />{padZero(minutes)}<BlinkComponent />{padZero(seconds)}
           </p>
           {
