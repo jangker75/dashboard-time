@@ -19,7 +19,8 @@ function App() {
   const [solatNow, setSolatNow] = useState("")
   const [solatNext, setSolatNext] = useState("")
   const [timecountdown, setTimecountdown] = useState("")
-  const urlJadwal = "https://api.myquran.com/v2/sholat/jadwal/1301/"
+  const idkota = ["1301",'1434']
+  const urlJadwal = "https://api.myquran.com/v2/sholat/jadwal"
   const hours = time.getHours();
   const minutes = time.getMinutes();
   const seconds = time.getSeconds();
@@ -48,7 +49,10 @@ function App() {
 
   const getJadwalAzan = async () => {
     const dd = new Date()
-    const url = `${urlJadwal}${year}/${padZero(dd.getMonth() + 1)}/${padZero(dd.getDate())}`;
+    const queryparams = new URLSearchParams(window.location.search)
+    const kota = queryparams.get("kota")
+    const idxkota = (kota && kota === "solo") ? 1 : 0
+    const url = `${urlJadwal}/${idkota[idxkota]}/${year}/${padZero(dd.getMonth() + 1)}/${padZero(dd.getDate())}`;
     try {
       const response = await fetch(url);
       const data = await response.json();
